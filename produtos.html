@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>
+   Promoção semanal AEL
+</title>
+<style>
+   body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #004aad;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .galeria {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+      padding: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .categoria-titulo {
+      text-align: center;
+      font-size: 1.5rem;
+      background-color: #e0ecff;
+      padding: 0.5rem;
+      border-radius: 10px;
+      grid-column: 1 / -1;
+    }
+
+    .produto {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      padding: 1rem;
+      text-align: center;
+      transition: transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 420px;
+    }
+
+    .produto:hover {
+      transform: scale(1.03);
+    }
+
+    .produto img {
+      height: 160px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    .produto h3 {
+      font-size: 1.1rem;
+      margin: 0.5rem 0 0.3rem;
+      min-height: 48px;
+    }
+
+    .produto p {
+      margin: 0.3rem 0;
+      color: #555;
+      min-height: 36px;
+    }
+
+    .whatsapp-btn {
+      background-color: #25D366;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+
+    .whatsapp-btn:hover {
+      background-color: #1ebe5c;
+    }
+
+    @media (max-width: 500px) {
+      .galeria {
+        grid-template-columns: 1fr;
+      }
+    }
+</style>
+
+<style>
+  @media (max-width: 768px) {
+    header, .header, .topo, .cabecalho {
+      font-size: 80% !important;
+    }
+    nav, .menu, .navbar {
+      font-size: 80% !important;
+    }
+    h1, h2, h3 {
+      font-size: 90% !important;
+    }
+    body {
+      overflow-x: hidden;
+    }
+  }
+</style>
+
+<style>
+.produto-card p {
+    padding: 0 10px 10px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #555;
+    max-height: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: max-height 0.3s ease;
+}
+.produto-card:hover p {
+    max-height: 500px;
+}
+.produto-card h3 {
+    font-size: 1rem;
+    color: #333;
+    min-height: 40px;
+}
+.produto-card img {
+    height: 180px;
+    object-fit: contain;
+    padding: 5px;
+}
+
+/* Ajuste da barra de pesquisa somente na página produtos */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-menus {
+    margin-bottom: 10px;
+  }
+
+  .search-bar {
+    width: 90%;
+    margin: 10px 0;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+    padding: 8px;
+  }
+}
+</style>
+
+<style>
+   .produtos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+.produto-card {
+    width: 250px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+}
+.produto-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+.produto-card h3 {
+    margin: 10px 0 5px;
+}
+.produto-card p {
+    padding: 0 10px 10px;
+    font-size: 14px;
+}
+.produto-card a {
+    display: inline-block;
+    margin: 10px 0 15px;
+    padding: 10px 15px;
+    background-color: #25D366;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+}
+  </style>
+
+<link rel="stylesheet" href="amazon-style.css">
+</head>
+<body>
+
+<header class="header-amazon">
+  <div class="header-container">
+    <div class="header-logo" style="font-size:20px; font-weight:bold;">Petshop AEL</div>
+    <nav class="header-menus">
+      <a href="index.html">Promoção</a>
+      <a href="produtos.html">Produtos</a>
+      <a href="contato.html">Contato</a>
+    </nav>
+    
+    <form class="search-bar" onsubmit="return false;">
+      <input type="text" id="searchInput" placeholder="Pesquisar produtos..." onkeyup="searchProducts()" />
+    </form>
+
+<script>
+   document.addEventListener('DOMContentLoaded', function () {
+    const input = document.getElementById('searchInput');
+    input.addEventListener('keyup', function () {
+      const filtro = input.value.toLowerCase();
+      const produtos = document.querySelectorAll('.produto-card');
+      produtos.forEach(p => {
+        const nome = p.querySelector('h3').textContent.toLowerCase();
+        p.style.display = nome.includes(filtro) ? '' : 'none';
+      });
+    });
+  });
+  </script>
+        
+  </div>
+</header>
+
+<!-- Filtros de categoria com estilo -->
+<div style="text-align: center; margin: 30px;">
+<button class="categoria-btn" onclick="filtrarCategoria('todos')">Todos</button>
+<button class="categoria-btn" onclick="filtrarCategoria('caes')">Cães</button>
+<button class="categoria-btn" onclick="filtrarCategoria('gatos')">Gatos</button>
+<button class="categoria-btn" onclick="filtrarCategoria('outros')">Outros</button>
+</div>
+<style>
+  .categoria-btn {
+    background-color: #004aad;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+  }
+
+  .categoria-btn:hover {
+    background-color: #003080;
+    transform: scale(1.05);
+  }
+
+  .categoria-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 74, 173, 0.3);
+  }
+</style>
+<script>
+  function filtrarCategoria(categoria) {
+    const produtos = document.querySelectorAll('.produto-card');
+    produtos.forEach(produto => {
+      const pertence = produto.classList.contains(categoria);
+      produto.style.display = (categoria === 'todos' || pertence) ? '' : 'none';
+    });
+  }
+</script>
+<div class="produtos-container">
+
+<!-- Produto 1 -->
+
+<div class="produto-card caes">
+<img src="capitao.png"/>
+<h3>
+     Capitão dog 14kg
+    </h3>
+<p>
+     Ração da Magnus para cães de porte médio com sabor carne sem corante, a capitão dog é indicada para raças de cães de porte médio.
+    </p>
+<a class="whatsapp-btn" data-mensagem="*Ola* vi a *Capitão Dog 14kg* *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/9052167811553130/5511997389130 " href="#" target="_blank">
+     Saiba mais
+    </a>
+</div>
+
+
+<!-- Produto 2 -->
+
+<div class="produto-card caes">
+<img src="flockdog.png"/>
+<h3>
+     Flock dog 15kg
+    </h3>
+<p>
+     Ração de sabor carne, sem corante para cães de pêlo baixo, contém omega 3 e 6, alimento balanceado para cães.
+    </p>
+<a class="whatsapp-btn" data-mensagem="*Olá* vi o Flockdog, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/23995457383379275/5511997389130" href="#" target="_blank">
+     Saiba mais
+    </a>
+</div>
+
+<!-- Produto 3 -->
+
+<div class="produto-card gatos">
+<img src="gatan.png"/>
+<h3>
+     Gatan mix 10kg
+    </h3>
+<p>
+     Ração da Magnus com alto teor de proteína no sabor frango e carne, sem corante, ótima escolha de ração para gatos não castrados.
+    </p>
+<a class="whatsapp-btn" data-mensagem="*Olá* vi o Gatan mix 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/10023124731117431/5511997389130" href="#" target="_blank">
+     Saiba mais
+    </a>
+</div>
+
+<!-- Produto 4 -->
+
+<div class="produto-card caes">
+<img src="multstar15kg.png"/>
+<h3>
+     Multstar 15kg
+    </h3>
+<p>
+     No sabor de Frango e arroz, sem corante, a multistar tem um alto teor de proteína bruta, recomendada para cães de porte médio à grande.
+    </p>
+<a class="whatsapp-btn" data-mensagem="*Olá* vi o Multstar 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/24306902628911142/5511997389130" href="#" target="_blank">
+     Saiba mais
+    </a>
+</div>
+
+<!-- Produto 5 -->
+
+<div class="produto-card gatos">
+<img src="petcat.png"/>
+<h3>
+     Pet Cat Castrados 10kg
+    </h3>
+<p>
+     Indicada para gatos castrados, no sabor de salmão, a Pet cat é uma ração que possuí alto teor de proteína e sem corante
+    </p>
+<a class="whatsapp-btn" data-mensagem="*Olá* vi a  Pet Cat Castrados 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/30028895180058188/5511997389130" href="#" target="_blank">
+     Saiba mais
+    </a>
+</div>
+
+<!-- Produto 6 -->
+
+<div class="produto-card gatos">
+<img src="unnacat.png"/>
+<h3>
+     Unna Cat Mix 10kg
+    </h3>
+<p>
+     Ração para gatos não castrados de carne e frango, sem corante, a unna é uma ração balanceada com extrato de yucca, diminui os odores das fezes e auxilia a flora intestinal.
+    </p>
+<a class="whatsapp-btn" data-mensagem="*Olá* vi a Unna Cat mix 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/24030313539966420/5511997389130" href="#" target="_blank">
+     Saiba mais
+    </a>
+</div>
+
+<!-- Produto 7 -->
+
+<div class="produto-card caes">
+  <img src="unnapp.png" />
+  <h3>UNNA DOG PEQUENAS RAÇAS CARNE E ARROZ 15KG</h3>
+  <p>- 23% de proteínas: contém um teor de proteínas de alta qualidade, o que proporciona mais saúde e proteção;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Unna pp dog 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/29608439465438282/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 8 -->
+
+<div class="produto-card caes">
+  <img src="unnadog.png" />
+  <h3>UNNA DOG CARNE E ARROZ 15KG</h3>
+  <p>- 22% de proteínas: contém um teor de proteínas de alta qualidade, o que proporciona mais saúde e vitalidade;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Unna  dog 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/29599804522999340/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 9 -->
+
+<div class="produto-card caes">
+  <img src="unnapp20.png" />
+  <h3>UNNA DOG PEQUENAS RAÇAS CARNE E ARROZ 20KG</h3>
+  <p>- 23% de proteínas: contém um teor de proteínas de alta qualidade, o que proporciona mais saúde e proteção;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Unna pp dog 20kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/9858033100954074/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 10 -->
+
+<div class="produto-card caes">
+  <img src="tododia15.png" />
+  <h3>MAGNUS TODO DIA CARNE 15KG</h3>
+  <p>Fornecida pela Adimax, a Magnus todo dia é uma ração balanceada em proteína (PRT 21%) sabor carne, não possui corante.</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Magnus todo dia 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/9799214916833344/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 11 -->
+
+<div class="produto-card caes">
+  <img src="tododia20.png" />
+  <h3>MAGNUS TODO DIA CARNE 20KG</h3>
+  <p>Fornecida pela Adimax, a Magnus todo dia é uma ração balanceada em proteína (PRT 21%) sabor carne, não possui corante.</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Magnus todo dia 20kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/9799214916833344/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 12 -->
+
+<div class="produto-card caes">
+  <img src="chips.png" />
+  <h3>MAGNUS CHIPS CARNE E FRANGO 15KG</h3>
+  <p>Fornecida pela ADIMAX, a magnus chips é uma ração balanceada em proteína (PRT 21%) com sabor carne e frango.</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Magnus Chips 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/23886867227604764/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 13 -->
+
+<div class="produto-card caes">
+  <img src="chips20.png" />
+  <h3>MAGNUS CHIPS CARNE E FRANGO 20KG</h3>
+  <p>Fornecida pela ADIMAX, a magnus chips é uma ração balanceada em proteína (PRT 21%) com sabor carne e frango.</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Magnus Chips 20kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/10081956321868359/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 14 -->
+
+<div class="produto-card caes">
+  <img src="lester7.png" />
+  <h3>LESTER 7KG</h3>
+  <p>Fornecida pela Primor, sabor carne e sem corante, Lester é uma ração de baixo teor de proteína indicada para cães com pouco pelo</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Lester 7kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/9732071750171767/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 15 -->
+
+<div class="produto-card caes">
+  <img src="lester25.png" />
+  <h3>LESTER 25KG</h3>
+  <p>Fornecida pela Primor, sabor carne e sem corante, Lester é uma ração de baixo teor de proteína indicada para cães com pouco pelo</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Lester 25kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/29473499008960521/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 16 -->
+
+<div class="produto-card caes">
+  <img src="lester15.png" />
+  <h3>LESTER 15KG</h3>
+  <p>Fornecida pela Primor, sabor carne e sem corante, Lester é uma ração de baixo teor de proteína indicada para cães com pouco pelo</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Lester 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/24562919859963323/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 17 -->
+
+<div class="produto-card caes">
+  <img src="igor7.png" />
+  <h3>IGOR 7KG</h3>
+  <p>Fornecida pela Primor, sabor carne e sem corante, Igor é uma ração de baixo teor de proteína indicada para cães com pouco pelo</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Igog 7kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/29568207156128281/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 18 -->
+
+<div class="produto-card caes">
+  <img src="igor15.png" />
+  <h3>IGOR 15KG</h3>
+  <p>Fornecida pela Primor, sabor carne e sem corante, Igor é uma ração de baixo teor de proteína indicada para cães com pouco pelo</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Igog 15kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/10053502838041882/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+<!-- Produto 19 -->
+
+<div class="produto-card caes">
+  <img src="igor25.png" />
+  <h3>IGOR 25KG</h3>
+  <p>Fornecida pela Primor, sabor carne e sem corante, Igor é uma ração de baixo teor de proteína indicada para cães com pouco pelo</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Igog 25kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/9493553864086853/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 20 -->
+
+
+<div class="produto-card gatos">
+  <img src="multstarcat.png" />
+  <h3>MULTISTAR CASTRADO SALMÃO 10,1KG</h3>
+  <p>Multi Star Castrado Salmão 35% de proteína Sabor Salmão Ideal para gatos castrados Sem corante Controle de Peso adequado</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Multistar cat castrado 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/24407240868884248/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 21 -->
+
+
+<div class="produto-card gatos">
+  <img src="unnacatmix.png" />
+  <h3> UNNA CAT CASTRADO MIX DE CARNES 10,1KG </h3>
+  <p> - 34% de proteínas: fornece uma fonte de energia essencial para uma vida longa e saudável;
+- A inclusão de L-carnitina auxilia no processo de queima da gordura, ajudando a manter o peso ideal;
+- Balanceamento ideal de minerais: maior saúde do trato urinário, prevenindo infecções e cálculos urinários;
+- Fórmula elaborada com taurina: aminoácido essencial para a saúde do coração e a visão. </p>
+
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Unna cat mix castrados 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/23987623617516930/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 22 -->
+
+
+
+<div class="produto-card gatos">
+  <img src="rech.png" />
+  <h3>MAGNUS CAT  RECHEIO CASTRADO FRANGO 20KG</h3>
+  <p>Com 30% de Proteína Bruta, a Magnus Cat Premium Gatos Adultos Castrados Sabor Frango Só Recheados é um alimento seco completo, formulado com precisão para atender as exigências do gato adulto castrado, de qualquer raça. Nutritivo e saboroso, agrada ao paladar diferenciado do gato, provendo benefícios a sua vida. BIO COMPLEX é um exclusivo complexo de ingredientes que promovem benefícios para o seu gato. Sabor irresistível: feito com ingredientes de alta qualidade. Equilíbrio da flora intestinal: Prebióticos, Fibras e Extrato de Yucca, a combinação destes ingredientes auxilia na formação das fezes mais. Pele e Pelagem: Ômegas 3 e 6, Biotina, Zinco Quelato, importantes para a manutenção da pele e pelagem sedosa e brilhante. Taurina: aminoácido essencial para o coração e visão.</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Magnus recheio 20kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/30363333853311388/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 23 -->
+
+
+
+<div class="produto-card gatos">
+  <img src="magcat.png" />
+  <h3>MAGNUS CAT CARNE PARA GATOS ADULTOS 10KG</h3>
+  <p>- Oferece equilíbrio da flora intestinal e fortalecimento do sistema imunológico;
+- 31% Proteína Bruta;
+- Auxilia na manutenção de uma pelagem sedosa e brilhante no seu felino;
+- Possui uma combinação de ingredientes de alta qualidade, que proporcionam uma alimentação saudável e saborosa;
+- Contém prebióticos como: fibras e extrato de Yucca que mantém um intestino mais saudável;
+- Alimento premium completo, desenvolvido especificamente para atender às necessidades nutricionais dos gatos.</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Magnus cat carne 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/23873945685558566/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+
+<!-- Produto 24 -->
+
+
+
+<div class="produto-card gatos">
+  <img src="goldenc.png" />
+  <h3>GOLDEN PARA GATOS ADULTOS SABOR CARNE 10,1KG</h3>
+  <p>- Indicada para gatos adultos;
+- Redução do odor das fezes, seleção de ingredientes especiais que auxiliam na redução do odor das fezes;
+- 33,50% Proteína Bruta;
+- Trato urinário saudável, minerais balanceados e controle do pH urinário;
+- Sabor inigualável, máxima satisfação para o paladar;
+- Intestino saudável, combinação de ingredientes de alta digestibilidade e prebióticos;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Golden cat carne 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/29953460074298523/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 25 -->
+
+
+
+<div class="produto-card gatos">
+  <img src="goldenf.png" />
+  <h3>GOLDEN PARA GATOS ADULTOS SABOR FRANGO 10,1KG</h3>
+  <p>- Indicada para gatos adultos;
+- Redução do odor das fezes, seleção de ingredientes especiais que auxiliam na redução do odor das fezes;
+- 33,50% Proteína Bruta;
+- Trato urinário saudável, minerais balanceados e controle do pH urinário;
+- Sabor inigualável, máxima satisfação para o paladar;
+- Intestino saudável, combinação de ingredientes de alta digestibilidade e prebióticos;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Golden cat frango 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/23886482774376312/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 26 -->
+
+
+
+<div class="produto-card gatos">
+  <img src="goldens.png" />
+  <h3>GOLDEN PARA GATOS ADULTOS SABOR SALMÃO 10,1KG</h3>
+  <p>- Indicada para gatos adultos;
+- Redução do odor das fezes, seleção de ingredientes especiais que auxiliam na redução do odor das fezes;
+- 33,50% Proteína Bruta;
+- Trato urinário saudável, minerais balanceados e controle do pH urinário;
+- Sabor inigualável, máxima satisfação para o paladar;
+- Intestino saudável, combinação de ingredientes de alta digestibilidade e prebióticos;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Golden cat Salmão 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/10046465862067646/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 27 -->
+
+
+
+<div class="produto-card gatos">
+  <img src="goldenfc.png" />
+  <h3>GOLDEN PARA GATOS ADULTOS CASTRADOS SABOR FRANGO 10,1KG</h3>
+  <p>- Indicada para gatos adultos castrados;
+- 36,50 % Proteína Bruta;
+- Redução do odor das fezes, seleção de ingredientes especiais que auxiliam na redução do odor das fezes;
+- Controle do ganho de peso, contém L-carnitina e teores reduzidos de calorias e gorduras;
+- Trato urinário saudável, minerais balanceados e controle do pH urinário;
+- Sabor inigualável, máxima satisfação para o paladar;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Golden cat Frango castrados 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/24407983858807644/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 28 -->
+
+
+
+
+<div class="produto-card gatos">
+  <img src="goldencc.png" />
+  <h3>GOLDEN PARA GATOS ADULTOS CASTRADOS SABOR CARNE 10,1KG</h3>
+  <p>- Indicada para gatos adultos castrados;
+- 36,50 % Proteína Bruta;
+- Redução do odor das fezes, seleção de ingredientes especiais que auxiliam na redução do odor das fezes;
+- Controle do ganho de peso, contém L-carnitina e teores reduzidos de calorias e gorduras;
+- Trato urinário saudável, minerais balanceados e controle do pH urinário;
+- Sabor inigualável, máxima satisfação para o paladar;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Golden cat Carne castrados 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/23863131873340631/5511997389130" target="_blank">Saiba mais</a>
+</div>
+
+
+<!-- Produto 29 -->
+
+
+
+
+<div class="produto-card gatos">
+  <img src="goldensc.png" />
+  <h3>GOLDEN PARA GATOS ADULTOS CASTRADOS SABOR SALMÃO 10,1KG</h3>
+  <p>- Indicada para gatos adultos castrados;
+- 36,50 % Proteína Bruta;
+- Redução do odor das fezes, seleção de ingredientes especiais que auxiliam na redução do odor das fezes;
+- Controle do ganho de peso, contém L-carnitina e teores reduzidos de calorias e gorduras;
+- Trato urinário saudável, minerais balanceados e controle do pH urinário;
+- Sabor inigualável, máxima satisfação para o paladar;</p>
+  <a href="#" class="whatsapp-btn" data-mensagem="*Olá* vi a Golden cat Salmão castrados 10kg, *pode me dar mais detalhes sobre o mesmo?* https://wa.me/p/30537580395855966/5511997389130" target="_blank">Saiba mais</a>
+</div>
+</div>
+<script>
+  document.querySelectorAll('.whatsapp-btn').forEach(button => {
+    button.addEventListener('click', function (e) {
+      e.preventDefault();
+      const mensagem = encodeURIComponent(this.dataset.mensagem);
+      const numero = "5511997389130";
+      const link = `https://wa.me/${numero}?text=${mensagem}`;
+      window.open(link, '_blank');
+    });
+  });
+</script>
+<footer style="text-align:center; padding: 20px; font-size: 14px; background-color: #f2f2f2;">
+        Todos os Direitos Reservados 2025
+    </footer>
+</body>
+</html>

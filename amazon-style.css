@@ -1,0 +1,144 @@
+
+/* Amazon-style layout (generic imitation: header, search, nav, sidebar, results) */
+:root{
+  --amazon-blue:#232f3e;
+  --amazon-yellow:#ff9900;
+  --muted:#f3f3f3;
+  --link:#007185;
+  --card-border:#e6e6e6;
+  --max-width:1200px;
+  --font-sans: Arial, Helvetica, sans-serif;
+}
+/* Reset minimal */
+*{box-sizing:border-box}
+body{font-family:var(--font-sans);margin:0;color:#111;background:#fff}
+.header-amazon{background:var(--amazon-blue);color:white;padding:8px 0;box-shadow:0 1px 0 rgba(0,0,0,0.1)}
+.header-container{max-width:var(--max-width);margin:0 auto;display:flex;align-items:center;gap:16px;padding:8px 16px}
+.logo-fake{display:flex;align-items:center;gap:8px;font-weight:700;color:var(--yellow);text-decoration:none}
+.logo-fake .logo-mark{background:var(--amazon-yellow);color:var(--amazon-blue);padding:6px 8px;border-radius:4px;font-weight:800}
+.search-bar{flex:1;display:flex;align-items:center}
+.search-bar input[type="text"]{width:100%;padding:10px;border-radius:4px 0 0 4px;border:1px solid #d6d6d6;outline:none}
+.search-bar button{padding:10px 14px;border-radius:0 4px 4px 0;border:1px solid #d6d6d6;background:#eee;cursor:pointer}
+.header-actions{display:flex;gap:12px;align-items:center}
+.top-nav{background:#fff;border-top:1px solid #e6e6e6;border-bottom:1px solid #e6e6e6}
+.top-nav .nav-container{max-width:var(--max-width);margin:0 auto;display:flex;gap:16px;padding:8px 16px;align-items:center}
+.main{max-width:var(--max-width);margin:18px auto;display:flex;gap:18px;padding:0 16px}
+.sidebar{width:240px;background:var(--muted);padding:12px;border-radius:4px;border:1px solid var(--card-border);height:fit-content}
+.results{flex:1}
+.card{border:1px solid var(--card-border);padding:12px;border-radius:6px;margin-bottom:12px;background:#fff}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px}
+.product-thumb{height:160px;background:#fafafa;border:1px dashed #eee;display:flex;align-items:center;justify-content:center;color:#999}
+.filter-section h4{margin:8px 0;font-size:14px}
+.footer{max-width:var(--max-width);margin:32px auto;padding:24px 16px;color:#666;font-size:14px}
+@media (max-width:800px){
+  .main{flex-direction:column;padding:0 12px}
+  .sidebar{width:100%}
+  .header-container{padding:8px 12px}
+}
+
+
+/* ====== Cabeçalho estilo Amazon adaptado ====== */
+.header-amazon{
+  background:var(--amazon-blue);
+  color:white;
+  padding:8px 0;
+  box-shadow:0 1px 0 rgba(0,0,0,0.1);
+}
+.header-container{
+  max-width:var(--max-width);
+  margin:0 auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:8px 16px;
+}
+.header-menus a{
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  margin:0 10px;
+}
+.header-menus a:hover{
+  text-decoration:underline;
+}
+.search-bar{
+  flex:1;
+  display:flex;
+  align-items:center;
+  margin-left:20px;
+}
+.search-bar input[type="text"]{
+  width:100%;
+  padding:10px;
+  border-radius:4px 0 0 4px;
+  border:1px solid #d6d6d6;
+  outline:none;
+}
+.search-bar button{
+  padding:10px 14px;
+  border-radius:0 4px 4px 0;
+  border:1px solid #d6d6d6;
+  background:var(--amazon-yellow);
+  cursor:pointer;
+}
+
+
+/* ==================== Ajustes para telas pequenas ==================== */
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  header .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  header .menu a {
+    font-size: 16px;
+    display: block;
+  }
+
+  /* Caixa de pesquisa visível em telas pequenas */
+  header .search {
+    display: block !important;
+    margin-top: 10px;
+    width: 90%;
+  }
+
+  header .search input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+}
+
+
+/* ==================== Ajustes para produtos em telas pequenas ==================== */
+@media (max-width: 768px) {
+  .produtos-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .produto-card {
+    width: 90% !important;
+    max-width: 400px;
+  }
+
+  .produto-card img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .produto-card p, 
+  .produto-card h3 {
+    text-align: center;
+  }
+}
